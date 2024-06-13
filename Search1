@@ -1,0 +1,24 @@
+.data 
+arr: .word 1, 5, 67, 3, 4, 63, 16, 32, 52
+size: .word 9
+
+.text
+main: 
+    la $t0, arr
+    lw $t1, size
+    li $t2, 0
+    li $t3, 16
+
+loop:
+    lw $t4, 0($t0)
+    beq $t4, $t3, end  # If element == search element, go to end
+
+    # If element != search element, continue loop
+    addi $t0, $t0, 4   # Move to next element
+    addi $t2, $t2, 1   # Increment index counter
+    bne $t2, $t1, loop
+
+end:
+    # Your code continues here
+    move $t5, $t4
+    

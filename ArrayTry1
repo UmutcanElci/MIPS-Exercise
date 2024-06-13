@@ -1,0 +1,30 @@
+.data
+
+array:      .word   5, 7, 12, 3, 4, 9, 6, 18, 2, 19
+array_size: .word   10
+
+.text
+
+main:   
+    la $a0, array
+    lw $a1, array_size
+    lw $t2, ($a0) # max
+    loop_array:
+        beq $a1, $zero, exit_loop
+        lw $t0, ($a0)
+        ble $t0, $t2, not_max # if (current_element <= current_max) {don't modify max}
+        move $t2, $t0
+        not_max:
+        addi $a1, $a1, -1
+        addi $a0, $a0, 4
+        j loop_array
+
+    exit_loop:
+   
+    li $v0, 1
+    move $a0, $t2
+    syscall 
+
+    # exit
+    li $v0, 10
+    syscall
